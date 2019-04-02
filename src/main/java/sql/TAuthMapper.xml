@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.app.mapper.TAuthMapper" >
+  <resultMap id="BaseResultMap" type="com.app.bean.TAuth" >
+    <id column="authId" property="authid" jdbcType="INTEGER" />
+    <result column="authName" property="authname" jdbcType="VARCHAR" />
+    <result column="authPath" property="authpath" jdbcType="VARCHAR" />
+    <result column="parentId" property="parentid" jdbcType="INTEGER" />
+    <result column="authDescription" property="authdescription" jdbcType="VARCHAR" />
+    <result column="state" property="state" jdbcType="VARCHAR" />
+    <result column="iconCls" property="iconcls" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    authId, authName, authPath, parentId, authDescription, state, iconCls
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.app.bean.TAuthExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_auth
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_auth
+    where authId = #{authid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_auth
+    where authId = #{authid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.app.bean.TAuthExample" >
+    delete from t_auth
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.app.bean.TAuth" >
+    insert into t_auth (authId, authName, authPath, 
+      parentId, authDescription, state, 
+      iconCls)
+    values (#{authid,jdbcType=INTEGER}, #{authname,jdbcType=VARCHAR}, #{authpath,jdbcType=VARCHAR}, 
+      #{parentid,jdbcType=INTEGER}, #{authdescription,jdbcType=VARCHAR}, #{state,jdbcType=VARCHAR}, 
+      #{iconcls,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.app.bean.TAuth" >
+    insert into t_auth
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="authid != null" >
+        authId,
+      </if>
+      <if test="authname != null" >
+        authName,
+      </if>
+      <if test="authpath != null" >
+        authPath,
+      </if>
+      <if test="parentid != null" >
+        parentId,
+      </if>
+      <if test="authdescription != null" >
+        authDescription,
+      </if>
+      <if test="state != null" >
+        state,
+      </if>
+      <if test="iconcls != null" >
+        iconCls,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="authid != null" >
+        #{authid,jdbcType=INTEGER},
+      </if>
+      <if test="authname != null" >
+        #{authname,jdbcType=VARCHAR},
+      </if>
+      <if test="authpath != null" >
+        #{authpath,jdbcType=VARCHAR},
+      </if>
+      <if test="parentid != null" >
+        #{parentid,jdbcType=INTEGER},
+      </if>
+      <if test="authdescription != null" >
+        #{authdescription,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="iconcls != null" >
+        #{iconcls,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.app.bean.TAuthExample" resultType="java.lang.Integer" >
+    select count(*) from t_auth
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_auth
+    <set >
+      <if test="record.authid != null" >
+        authId = #{record.authid,jdbcType=INTEGER},
+      </if>
+      <if test="record.authname != null" >
+        authName = #{record.authname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.authpath != null" >
+        authPath = #{record.authpath,jdbcType=VARCHAR},
+      </if>
+      <if test="record.parentid != null" >
+        parentId = #{record.parentid,jdbcType=INTEGER},
+      </if>
+      <if test="record.authdescription != null" >
+        authDescription = #{record.authdescription,jdbcType=VARCHAR},
+      </if>
+      <if test="record.state != null" >
+        state = #{record.state,jdbcType=VARCHAR},
+      </if>
+      <if test="record.iconcls != null" >
+        iconCls = #{record.iconcls,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_auth
+    set authId = #{record.authid,jdbcType=INTEGER},
+      authName = #{record.authname,jdbcType=VARCHAR},
+      authPath = #{record.authpath,jdbcType=VARCHAR},
+      parentId = #{record.parentid,jdbcType=INTEGER},
+      authDescription = #{record.authdescription,jdbcType=VARCHAR},
+      state = #{record.state,jdbcType=VARCHAR},
+      iconCls = #{record.iconcls,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.app.bean.TAuth" >
+    update t_auth
+    <set >
+      <if test="authname != null" >
+        authName = #{authname,jdbcType=VARCHAR},
+      </if>
+      <if test="authpath != null" >
+        authPath = #{authpath,jdbcType=VARCHAR},
+      </if>
+      <if test="parentid != null" >
+        parentId = #{parentid,jdbcType=INTEGER},
+      </if>
+      <if test="authdescription != null" >
+        authDescription = #{authdescription,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="iconcls != null" >
+        iconCls = #{iconcls,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where authId = #{authid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.app.bean.TAuth" >
+    update t_auth
+    set authName = #{authname,jdbcType=VARCHAR},
+      authPath = #{authpath,jdbcType=VARCHAR},
+      parentId = #{parentid,jdbcType=INTEGER},
+      authDescription = #{authdescription,jdbcType=VARCHAR},
+      state = #{state,jdbcType=VARCHAR},
+      iconCls = #{iconcls,jdbcType=VARCHAR}
+    where authId = #{authid,jdbcType=INTEGER}
+  </update>
+</mapper>

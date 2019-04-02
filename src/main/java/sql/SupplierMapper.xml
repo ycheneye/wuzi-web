@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.app.mapper.SupplierMapper" >
+
+	
+	<select id="getTotal" resultType="Integer" parameterType="HashMap" >
+	
+		select count(1) as total from (
+		
+			select * from supplier
+		
+				<where>
+					<if test="id != null ">
+						and id=#{id}
+					</if>
+					<if test="supplier_name != null ">
+						and supplier_name like #{supplier_name}
+					</if>
+					<if test="userid != null ">
+						and userid=#{userid}
+					</if>
+					<if test="userName != null ">
+						and userName=#{userName}
+					</if>
+					<if test="is_delete != null ">
+						and is_delete=#{is_delete}
+					</if>
+				</where>
+		) t
+	
+	</select>
+
+
+	<select id="list" resultType="HashMap" parameterType="HashMap" >
+	
+		select * from supplier
+		
+		<where>
+			<if test="id != null ">
+				and id=#{id}
+			</if>
+			<if test="supplier_name != null ">
+				and supplier_name like #{supplier_name}
+			</if>
+			<if test="userid != null ">
+				and userid=#{userid}
+			</if>
+			<if test="userName != null ">
+				and userName=#{userName}
+			</if>
+			<if test="is_delete != null ">
+				and is_delete=#{is_delete}
+			</if>
+		</where>
+		
+		limit #{start},#{end}
+	
+	</select>
+
+
+	<update id="update" parameterType="HashMap" >
+	    update supplier
+	    <set>
+		      <if test="supplier_name != null" >
+		        supplier_name = #{supplier_name},
+		      </if>
+		      <if test="userid != null" >
+		        userid = #{userid},
+		      </if>
+		      <if test="userName != null" >
+			     userName =  #{userName},
+			  </if>
+		      <if test="create_time != null" >
+		       create_time =  #{create_time},
+		      </if>
+		      <if test="update_time != null" >
+		       update_time = #{update_time},
+		      </if>
+		      <if test="is_delete != null" >
+		        is_delete = #{is_delete},
+		      </if>
+		      <if test="addr != null" >
+		        addr = #{addr},
+		      </if>
+		      <if test="tel != null" >
+		        tel = #{tel},
+		      </if>
+	     </set>
+	      where id = #{id,jdbcType=INTEGER}
+     </update>
+
+	<insert id="insert" parameterType="HashMap"  >
+	
+		INSERT INTO supplier
+		
+			<trim prefix="(" suffix=")" suffixOverrides="," >
+			      
+			      <if test="supplier_name != null" >
+			        supplier_name,
+			      </if>
+			      <if test="userid != null" >
+			        userid,
+			      </if>
+			      <if test="userName != null" >
+			        userName,
+			      </if>
+			      <if test="create_time != null" >
+			        create_time,
+			      </if>
+			      <if test="update_time != null" >
+			        update_time,
+			      </if>
+			      <if test="is_delete != null" >
+			        is_delete,
+			      </if>
+			      <if test="addr != null" >
+			        addr,
+			      </if>
+			      <if test="tel != null" >
+			        tel,
+			      </if>
+		    </trim>
+		    
+		    <trim prefix="values (" suffix=")" suffixOverrides="," >
+				<if test="supplier_name != null" >
+			        #{supplier_name},
+			      </if>
+			      <if test="userid != null" >
+			        #{userid},
+			      </if>
+			      <if test="userName != null" >
+			        #{userName},
+			      </if>
+			      <if test="create_time != null" >
+			        #{create_time},
+			      </if>
+			      <if test="update_time != null" >
+			        #{update_time},
+			      </if>
+			      <if test="is_delete != null" >
+			        #{is_delete},
+			      </if>
+			      <if test="addr != null" >
+			        #{addr},
+			      </if>
+			      <if test="tel != null" >
+			        #{tel},
+			      </if>
+			</trim>
+			
+		
+	
+	</insert>
+
+</mapper>

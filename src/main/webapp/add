@@ -1,0 +1,45 @@
+1. 物资盘点需增加借出和领用字段，库存数量不包括部门领用和已经借出物资（OK）
+SELECT
+	t.id,
+	t.goodsName,
+	t.kc,
+	(
+		SELECT
+			sum(count) AS jiechuCount
+		FROM
+			deptjiechu
+		WHERE
+			goodsid = t.id
+		AND state = 4 /*已借出*/
+		OR state = 5 /*申请归还，待审核*/
+	) AS jiechuCount,
+	IFNULL(
+		(
+			SELECT
+				sum(count) AS lyCount
+			FROM
+				deptlingyong
+			WHERE
+				goodsid = t.id
+		),
+		0
+	) AS lyCount
+FROM
+	goods t where 1=1 ;
+
+
+
+
+部门报损需增加字段（报损原因，操作人），报损数量是根据领用数量判断，不能多于领用数量。 (~OK)
+
+
+
+部门报损查询增加字段（报损原因） (~OK)
+部门报损汇总需增加字段（报损原因）  (~OK) 
+部门领用需增加字段（操作人，库存） (~OK) 
+物资借出需增加字段（操作人，库存） (~OK) 
+采购单登记那里右边空白地方加上一个小窗，有物资对应编号的页面，这样有对照输入物资编号比较好
+
+
+
+

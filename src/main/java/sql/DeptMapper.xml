@@ -1,0 +1,495 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.app.mapper.DeptMapper" >
+
+
+	
+	<update id="updateJieChuState"  parameterType="HashMap">
+	
+		update deptjiechu t set t.state = 4  where t.id = #{id} 
+	
+	</update>
+	
+	
+	<select id="getMaxBaosun" resultType="Integer" parameterType="HashMap" >
+		select 
+		(select sum(count) from deptlingyong where deptid = #{deptid}  and goodsid = #{goodsid} )
+		-
+		IFNULL((select sum(count) from deptbaosun where deptid = #{deptid}  and goodsid = #{goodsid} ),0)
+		from dual
+	</select>
+	
+
+	<select id="getTotal" resultType="Integer" parameterType="HashMap" >
+	
+		select count(1) as total from (
+		
+			select * from dept
+		
+				<where>
+
+					<if test="deptid != null ">
+						and deptid=#{deptid} 
+					</if>
+					<if test="deptname != null ">
+						and deptname like #{deptname} 
+					</if>
+					<if test="userid != null ">
+						and userid=#{userid} 
+					</if>
+					<if test="userName != null ">
+						and userName=#{userName} 
+					</if>
+					<if test="create_time != null ">
+						and create_time=#{create_time} 
+					</if>
+					<if test="update_time != null ">
+						and update_time=#{update_time} 
+					</if>
+					<if test="is_delete != null ">
+						and is_delete=#{is_delete} 
+					</if>
+					
+					
+				</where>
+		) t
+	
+	</select>
+	
+	<select id="getTotal_lycx" resultType="Integer" parameterType="HashMap" >
+	
+		select count(1) as total from (
+		
+			select * from deptlingyong
+		
+				<where>
+					<if test="deptid != null ">
+						and deptid=#{deptid}
+					</if>
+					<if test="deptname != null ">
+						and deptname like #{deptname}
+					</if>
+					<if test="goodsid != null ">
+						and goodsid=#{goodsid}
+					</if>
+					<if test="goodsName != null ">
+						and goodsName like #{goodsName}
+					</if>
+					<if test="userid != null ">
+						and userid=#{userid}
+					</if>
+					<if test="userName != null ">
+						and userName=#{userName}
+					</if>
+					<if test="create_time != null ">
+						and create_time=#{create_time}
+					</if>
+					<if test="update_time != null ">
+						and update_time=#{update_time}
+					</if>
+					<if test="is_delete != null ">
+						and is_delete=#{is_delete}
+					</if>
+				</where>
+		) t
+	
+	</select>
+	
+	
+	<select id="getTotal_jccx" resultType="Integer" parameterType="HashMap" >
+	
+		select count(1) as total from (
+		
+			select * from deptJiechu
+		
+				<where>
+					<if test="deptid != null ">
+						and deptid=#{deptid}
+					</if>
+					<if test="deptname != null ">
+						and deptname like #{deptname}
+					</if>
+					<if test="goodsid != null ">
+						and goodsid=#{goodsid}
+					</if>
+					<if test="goodsName != null ">
+						and goodsName like #{goodsName}
+					</if>
+					<if test="userid != null ">
+						and userid=#{userid}
+					</if>
+					<if test="userName != null ">
+						and userName=#{userName}
+					</if>
+					<if test="create_time != null ">
+						and create_time=#{create_time}
+					</if>
+					<if test="update_time != null ">
+						and update_time=#{update_time}
+					</if>
+					<if test="is_delete != null ">
+						and is_delete=#{is_delete}
+					</if>
+				</where>
+		) t
+	
+	</select>
+	
+	<!-- 获取报损查询的总数 -->
+	<select id="getTotal_bscx" resultType="Integer" parameterType="HashMap" >
+	
+		select count(1) as total from (
+		
+			select * from deptBaosun
+		
+				<where>
+					<if test="deptid != null ">
+						and deptid=#{deptid}
+					</if>
+					<if test="deptname != null ">
+						and deptname like #{deptname}
+					</if>
+					<if test="goodsid != null ">
+						and goodsid=#{goodsid}
+					</if>
+					<if test="goodsName != null ">
+						and goodsName like #{goodsName}
+					</if>
+					<if test="userid != null ">
+						and userid=#{userid}
+					</if>
+					<if test="userName != null ">
+						and userName=#{userName}
+					</if>
+					<if test="create_time != null ">
+						and create_time=#{create_time}
+					</if>
+					<if test="update_time != null ">
+						and update_time=#{update_time}
+					</if>
+					<if test="is_delete != null ">
+						and is_delete=#{is_delete}
+					</if>
+				</where>
+		) t
+	
+	</select>
+	
+	<!-- 借出查询 -->
+	<select id="listJccx" resultType="HashMap" parameterType="HashMap" >
+	
+		select * from deptJiechu
+		
+		<where>
+			<if test="deptid != null ">
+				and deptid=#{deptid}
+			</if>
+			<if test="deptname != null ">
+				and deptname like #{deptname}
+			</if>
+			<if test="goodsid != null ">
+				and goodsid=#{goodsid}
+			</if>
+			<if test="goodsName != null ">
+				and goodsName like #{goodsName}
+			</if>
+			<if test="userid != null ">
+				and userid=#{userid}
+			</if>
+			<if test="userName != null ">
+				and userName=#{userName}
+			</if>
+			<if test="create_time != null ">
+				and create_time=#{create_time}
+			</if>
+			<if test="update_time != null ">
+				and update_time=#{update_time}
+			</if>
+			<if test="is_delete != null ">
+				and is_delete=#{is_delete}
+			</if>
+			<if test="state != null ">
+				and state=#{state}
+			</if>
+		</where>
+		limit #{start},#{end}
+	</select>
+	
+	<!-- 领用查询 -->
+	<select id="listLycx" resultType="HashMap" parameterType="HashMap" >
+	
+		select * from deptlingyong
+		
+		<where>
+			<if test="deptid != null ">
+				and deptid=#{deptid}
+			</if>
+			<if test="deptname != null ">
+				and deptname like #{deptname}
+			</if>
+			<if test="goodsid != null ">
+				and goodsid=#{goodsid}
+			</if>
+			<if test="goodsName != null ">
+				and goodsName like #{goodsName}
+			</if>
+			<if test="userid != null ">
+				and userid=#{userid}
+			</if>
+			<if test="userName != null ">
+				and userName=#{userName}
+			</if>
+			<if test="create_time != null ">
+				and create_time=#{create_time}
+			</if>
+			<if test="update_time != null ">
+				and update_time=#{update_time}
+			</if>
+			<if test="is_delete != null ">
+				and is_delete=#{is_delete}
+			</if>
+		</where>
+		limit #{start},#{end}
+	</select>
+
+
+	<!-- 报损查询 -->
+	<select id="listbscx" resultType="HashMap" parameterType="HashMap" >
+	
+		select * from deptBaosun
+		
+		<where>
+			<if test="deptid != null ">
+				and deptid=#{deptid}
+			</if>
+			<if test="deptname != null ">
+				and deptname like #{deptname}
+			</if>
+			<if test="goodsid != null ">
+				and goodsid=#{goodsid}
+			</if>
+			<if test="goodsName != null ">
+				and goodsName like #{goodsName}
+			</if>
+			<if test="userid != null ">
+				and userid=#{userid}
+			</if>
+			<if test="userName != null ">
+				and userName=#{userName}
+			</if>
+			<if test="create_time != null ">
+				and create_time=#{create_time}
+			</if>
+			<if test="update_time != null ">
+				and update_time=#{update_time}
+			</if>
+			<if test="is_delete != null ">
+				and is_delete=#{is_delete}
+			</if>
+		</where>
+		limit #{start},#{end}
+	</select>
+
+	<select id="list" resultType="HashMap" parameterType="HashMap" >
+	
+		select * from dept
+		
+		<where>
+			<if test="deptid != null ">
+				and deptid=#{deptid}
+			</if>
+			<if test="deptname != null ">
+				and deptname like #{deptname}
+			</if>
+			<if test="userid != null ">
+				and userid=#{userid}
+			</if>
+			<if test="userName != null ">
+				and userName=#{userName}
+			</if>
+			<if test="create_time != null ">
+				and create_time=#{create_time}
+			</if>
+			<if test="update_time != null ">
+				and update_time=#{update_time}
+			</if>
+			<if test="is_delete != null ">
+				and is_delete=#{is_delete}
+			</if>
+		</where>
+		limit #{start},#{end}
+	</select>
+
+
+	<update id="update" parameterType="HashMap" >
+	    update dept
+	    <set>
+		      <if test="deptname != null" >
+		        deptname = #{deptname},
+		      </if>
+		      <if test="userid != null" >
+		        userid = #{userid},
+		      </if>
+		      <if test="userName != null" >
+			     userName =  #{userName},
+			  </if>
+		      <if test="create_time != null" >
+		       create_time =  #{create_time},
+		      </if>
+		      <if test="update_time != null" >
+		       update_time = #{update_time},
+		      </if>
+		      <if test="is_delete != null" >
+		        is_delete = #{is_delete},
+		      </if>
+	     </set>
+	      where deptid = #{deptid,jdbcType=INTEGER}
+     </update>
+     
+     <!-- 暂时不需要对部门借出物资的次数进行统计，已废弃该方法 -->
+     <update id="addDeptJcCount" parameterType="String">
+     	
+     	update dept set count2 = (count2+1) where deptid = #{0};
+     
+     
+     </update>
+     
+     
+     <update id="addDeptLingYongCount" parameterType="String">
+     	
+     	update dept set count = (count+1) where deptid = #{0};
+     
+     
+     </update>
+     
+     <update id="addDeptGh" >
+     	
+     	update deptjiechu set state = 5 where id = #{0};
+     
+     
+     </update>
+     
+     
+      <update id="addDeptGhSh" >
+     	
+     	update deptjiechu set state = 6 where id = #{0};
+     
+     
+     </update>
+     
+     
+     <insert id="addDeptJc" parameterType="HashMap"  >
+
+		insert into deptJiechu 
+		
+		values (NULL,
+				#{deptid},
+				#{deptname},
+				#{goodsid},
+				#{goodsName},
+				#{userid},
+				#{userName},
+				#{create_time},
+				#{update_time},
+				#{is_delete},
+				#{count},
+				3
+				
+		)
+	
+	</insert>
+
+<insert id="addDeptLingYong" parameterType="HashMap"  >
+
+	insert into deptlingyong 
+	
+	values (NULL,
+			#{deptid},
+			#{deptname},
+			#{goodsid},
+			#{goodsName},
+			#{userid},
+			#{userName},
+			#{create_time},
+			#{update_time},
+			#{is_delete},
+			#{count}
+			
+	)
+
+</insert>
+
+
+<insert id="addDeptBaosun" parameterType="HashMap"  >
+
+	insert into deptBaosun 
+	
+	values (NULL,
+			#{deptid},
+			#{deptname},
+			#{goodsid},
+			#{goodsName},
+			#{userid},
+			#{userName},
+			#{create_time},
+			#{update_time},
+			#{is_delete},
+			#{count},
+			#{reason}
+	)
+
+</insert>
+     
+
+<insert id="insert" parameterType="HashMap"  >
+	
+		INSERT INTO dept
+		
+			<trim prefix="(" suffix=")" suffixOverrides="," >
+			      
+			      <if test="deptname != null" >
+			        deptname,
+			      </if>
+			      <if test="userid != null" >
+			        userid,
+			      </if>
+			      <if test="userName != null" >
+			        userName,
+			      </if>
+			      <if test="create_time != null" >
+			        create_time,
+			      </if>
+			      <if test="update_time != null" >
+			        update_time,
+			      </if>
+			      <if test="is_delete != null" >
+			        is_delete,
+			      </if>
+		    </trim>
+		    
+		    <trim prefix="values (" suffix=")" suffixOverrides="," >
+				<if test="deptname != null" >
+			        #{deptname},
+			      </if>
+			      <if test="userid != null" >
+			        #{userid},
+			      </if>
+			      <if test="userName != null" >
+			        #{userName},
+			      </if>
+			      <if test="create_time != null" >
+			        #{create_time},
+			      </if>
+			      <if test="update_time != null" >
+			        #{update_time},
+			      </if>
+			      <if test="is_delete != null" >
+			        #{is_delete},
+			      </if>
+			</trim>
+			
+		
+	
+	</insert>
+
+</mapper>

@@ -1,0 +1,7 @@
+eclipse.preferences.version=1
+encoding//src/main/java/com/app/bean/PageBean.java=GBK
+encoding//src/main/java/com/app/core/filter/LoginInterceptor.java=UTF-8
+encoding//src/main/java/com/app/service/UserService.java=UTF-8
+encoding//src/main/java/com/app/web/LoginController.java=UTF-8
+encoding//src/main/java/com/app/web/RegController.java=GBK
+encoding/<project>=UTF-8
